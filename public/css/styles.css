@@ -1,0 +1,124 @@
+:root {
+    --status-online: #198754;
+    --status-offline: #dc3545;
+    --embed-border-radius: 4px;
+    --embed-border-width: 4px;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+#bot-status.bg-danger .status-indicator {
+    background-color: #fff;
+}
+
+#bot-status.bg-success .status-indicator {
+    background-color: #fff;
+}
+
+.guild-list .list-group-item {
+    transition: all 0.2s;
+    cursor: pointer;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+}
+
+.guild-list .list-group-item:first-child {
+    border-top: 0;
+}
+
+.guild-list .list-group-item:hover {
+    background-color: var(--bs-secondary-bg);
+}
+
+.guild-list .list-group-item.active {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.response-box {
+    min-height: 150px;
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: var(--bs-font-monospace);
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--bs-border-color);
+    padding: 0.5rem;
+}
+
+#theme-toggle:checked + label .bi-sun-fill::before {
+    content: "\F1D1";
+}
+
+.embed-preview {
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: 15px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.embed-preview-content {
+    height: 100%;
+    min-height: 200px;
+}
+
+.discord-embed {
+    border-left: var(--embed-border-width) solid;
+    border-radius: var(--embed-border-radius);
+    padding: 8px 16px;
+    margin-bottom: 8px;
+    background-color: var(--bs-secondary-bg-subtle);
+}
+
+.discord-embed-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.discord-embed-description {
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+}
+
+.discord-embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
+}
+
+.discord-embed-field {
+    margin: 0 8px 8px;
+    min-width: 100px;
+}
+
+.discord-embed-field.inline {
+    flex: 1;
+    min-width: 150px;
+    max-width: calc(100% / 3);
+}
+
+.discord-embed-field-name {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.discord-embed-thumbnail {
+    float: right;
+    max-width: 80px;
+    max-height: 80px;
+    margin: 0 0 8px 16px;
+    border-radius: 3px;
+}
+
+.discord-embed-footer {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--bs-secondary-color);
+}
