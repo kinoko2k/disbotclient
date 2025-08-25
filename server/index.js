@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const discordTranscripts = require('discord-html-transcripts');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -74,6 +75,41 @@ app.post('/api/send-message', async (req, res) => {
   } catch (error) {
     console.error('メッセージ送信エラー:', error);
     res.status(500).json({ error: 'メッセージ送信中にエラーが発生しました: ' + error.message });
+  }
+});
+
+// 新規追加: メッセージ履歴を取得するAPI
+app.get('/api/channels/:channelId/messages', async (req, res) => {
+  try {
+    const { channelId } = req.params;
+    const { limit = 10 } = req.query;
+
+    const channel = await client.channels.fetch(channelId);
+    if (!channel) {
+      return res.status(404).json({ error: 'チャンネルが見つかりません' });
+    }
+
+    // メッセージを取得
+    const messages = await channel.messages.fetch({ limit: parseInt(limit) });
+    
+    // HTMLトランスクリプトを生成
+    const attachment = await discordTranscripts.createTranscript(channel, {
+      limit: parseInt(limit),
+      returnType: 'string',
+      filename: 'transcript.html',
+      saveImages: false,
+      poweredBy: false
+    });
+
+    res.json({
+      success: true,
+      html: attachment,
+      messageCount: messages.size
+    });
+
+  } catch (error) {
+    console.error('メッセージ履歴取得エラー:', error);
+    res.status(500).json({ error: 'メッセージ履歴の取得中にエラーが発生しました: ' + error.message });
   }
 });
 

@@ -2,195 +2,221 @@
 <html lang="ja" data-bs-theme="dark">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Bot管理パネル</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discord Bot管理パネル</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-discord me-2"></i>DiscordBot管理パネル
-            </a>
-            <div class="ms-auto d-flex align-items-center">
-                <div id="bot-status" class="badge bg-danger d-flex align-items-center me-3">
-                    <span class="status-indicator me-2"></span>
-                    <span class="status-text">オフライン</span>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="theme-toggle">
-                    <label class="form-check-label" for="theme-toggle">
-                        <i class="bi bi-sun-fill"></i>
-                    </label>
-                </div>
-            </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-discord me-2"></i>DiscordBot管理パネル
+      </a>
+      <div class="ms-auto d-flex align-items-center">
+        <div id="bot-status" class="badge bg-danger d-flex align-items-center me-3">
+          <span class="status-indicator me-2"></span>
+          <span class="status-text">オフライン</span>
         </div>
-    </nav>
-
-    <div class="container my-4">
-        <div class="row g-4">
-            <div class="col-md-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-header bg-secondary-subtle">
-                        <h5 class="card-title mb-0">
-                            <i class="bi bi-list-ul me-2"></i>サーバー一覧
-                        </h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <ul id="guild-list" class="list-group list-group-flush guild-list">
-                            <li class="list-group-item text-body-secondary">読み込み中...</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-9">
-                <div class="card mb-4 border-0 shadow-sm">
-                    <div class="card-header bg-secondary-subtle">
-                        <h5 class="card-title mb-0">
-                            <i class="bi bi-chat-left-text me-2"></i>チャンネル選択
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <select id="channel-select" class="form-select" disabled>
-                            <option>サーバーを選択してください</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="card mb-4 border-0 shadow-sm">
-                    <div class="card-header bg-secondary-subtle">
-                        <ul class="nav nav-tabs card-header-tabs" id="message-tabs">
-                            <li class="nav-item">
-                                <button class="nav-link active" id="text-tab" data-bs-toggle="tab"
-                                    data-bs-target="#text-content">
-                                    <i class="bi bi-chat me-2"></i>テキスト
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link" id="embed-tab" data-bs-toggle="tab"
-                                    data-bs-target="#embed-content">
-                                    <i class="bi bi-card-text me-2"></i>Embed
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="text-content">
-                                <textarea id="message-input" class="form-control mb-3" placeholder="メッセージを入力" rows="4"
-                                    disabled></textarea>
-                            </div>
-
-                            <div class="tab-pane fade" id="embed-content">
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">タイトル</label>
-                                            <input type="text" id="embed-title" class="form-control"
-                                                placeholder="Embedのタイトル">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">説明</label>
-                                            <textarea id="embed-description" class="form-control" rows="3"
-                                                placeholder="Embedの説明"></textarea>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col">
-                                                <label class="form-label">カラー</label>
-                                                <input type="color" id="embed-color"
-                                                    class="form-control form-control-color" value="#5865F2">
-                                            </div>
-                                            <div class="col">
-                                                <label class="form-label">サムネイルURL</label>
-                                                <input type="url" id="embed-thumbnail" class="form-control"
-                                                    placeholder="画像のURL">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div id="embed-preview" class="embed-preview">
-                                            <div class="embed-preview-content">
-                                                <p class="text-muted text-center">プレビューはここに表示されます</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">フィールド</label>
-                                    <div id="embed-fields-container">
-                                    </div>
-                                    <button id="add-field-btn" class="btn btn-sm btn-outline-primary mt-2">
-                                        <i class="bi bi-plus-circle me-1"></i>フィールドを追加
-                                    </button>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">フッター</label>
-                                    <input type="text" id="embed-footer" class="form-control" placeholder="フッターテキスト">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button id="clear-btn" class="btn btn-outline-secondary">
-                                <i class="bi bi-trash me-1"></i>クリア
-                            </button>
-                            <button id="send-btn" class="btn btn-primary" disabled>
-                                <i class="bi bi-send me-1"></i>送信
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-secondary-subtle">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0">
-                                <i class="bi bi-journal-text me-2"></i>レスポンス
-                            </h5>
-                            <button id="clear-logs-btn" class="btn btn-sm btn-outline-secondary">
-                                <i class="bi bi-eraser me-1"></i>クリア
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="response-display" class="response-box">
-                            <div class="text-muted text-center p-3">
-                                <i class="bi bi-info-circle me-1"></i>not found
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="theme-toggle">
+          <label class="form-check-label" for="theme-toggle">
+            <i class="bi bi-sun-fill"></i>
+          </label>
         </div>
+      </div>
     </div>
+  </nav>
 
-    <template id="field-template">
-        <div class="embed-field-row row g-2 mb-2">
-            <div class="col-5">
-                <input type="text" class="form-control field-name" placeholder="フィールド名">
-            </div>
-            <div class="col-5">
-                <input type="text" class="form-control field-value" placeholder="フィールド値">
-            </div>
-            <div class="col-2">
-                <div class="form-check pt-2">
-                    <input class="form-check-input field-inline" type="checkbox">
-                    <label class="form-check-label">インライン</label>
-                </div>
-            </div>
-            <div class="col-12 text-end">
-                <button type="button" class="btn btn-sm btn-outline-danger remove-field-btn">削除</button>
-            </div>
+  <div class="container my-4">
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-header bg-secondary-subtle">
+            <h5 class="card-title mb-0">
+              <i class="bi bi-list-ul me-2"></i>サーバー一覧
+            </h5>
+          </div>
+          <div class="card-body p-0">
+            <ul id="guild-list" class="list-group list-group-flush guild-list">
+              <li class="list-group-item text-body-secondary">読み込み中...</li>
+            </ul>
+          </div>
         </div>
-    </template>
+      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+      <div class="col-md-9">
+        <div class="card mb-4 border-0 shadow-sm">
+          <div class="card-header bg-secondary-subtle">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">
+                <i class="bi bi-chat-left-text me-2"></i>チャンネル選択
+              </h5>
+              <button id="load-messages-btn" class="btn btn-sm btn-outline-primary" disabled>
+                <i class="bi bi-arrow-clockwise me-1"></i>メッセージ履歴を読み込み
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <select id="channel-select" class="form-select" disabled>
+              <option>サーバーを選択してください</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="messages-section" class="card mb-4 border-0 shadow-sm" style="display: none;">
+          <div class="card-header bg-secondary-subtle">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">
+                <i class="bi bi-chat-dots me-2"></i>メッセージ履歴
+              </h5>
+              <div class="d-flex gap-2">
+                <select id="message-limit" class="form-select form-select-sm" style="width: auto;">
+                  <option value="5">5件</option>
+                  <option value="10" selected>10件</option>
+                  <option value="20">20件</option>
+                  <option value="50">50件</option>
+                </select>
+                <button id="refresh-messages-btn" class="btn btn-sm btn-outline-secondary">
+                  <i class="bi bi-arrow-clockwise"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="messages-display" class="messages-container">
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4 border-0 shadow-sm">
+          <div class="card-header bg-secondary-subtle">
+            <ul class="nav nav-tabs card-header-tabs" id="message-tabs">
+              <li class="nav-item">
+                <button class="nav-link active" id="text-tab" data-bs-toggle="tab" data-bs-target="#text-content">
+                  <i class="bi bi-chat me-2"></i>テキスト
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" id="embed-tab" data-bs-toggle="tab" data-bs-target="#embed-content">
+                  <i class="bi bi-card-text me-2"></i>Embed
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="text-content">
+                <textarea id="message-input" class="form-control mb-3" placeholder="メッセージを入力" rows="4" disabled></textarea>
+              </div>
+              
+              <div class="tab-pane fade" id="embed-content">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label class="form-label">タイトル</label>
+                      <input type="text" id="embed-title" class="form-control" placeholder="Embedのタイトル">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">説明</label>
+                      <textarea id="embed-description" class="form-control" rows="3" placeholder="Embedの説明"></textarea>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label class="form-label">カラー</label>
+                        <input type="color" id="embed-color" class="form-control form-control-color" value="#5865F2">
+                      </div>
+                      <div class="col">
+                        <label class="form-label">サムネイルURL</label>
+                        <input type="url" id="embed-thumbnail" class="form-control" placeholder="画像のURL">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div id="embed-preview" class="embed-preview">
+                      <div class="embed-preview-content">
+                        <p class="text-muted text-center">プレビューはここに表示されます</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">フィールド</label>
+                  <div id="embed-fields-container">
+                    <!-- フィールドがここに追加されます -->
+                  </div>
+                  <button id="add-field-btn" class="btn btn-sm btn-outline-primary mt-2">
+                    <i class="bi bi-plus-circle me-1"></i>フィールドを追加
+                  </button>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">フッター</label>
+                  <input type="text" id="embed-footer" class="form-control" placeholder="フッターテキスト">
+                </div>
+              </div>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button id="clear-btn" class="btn btn-outline-secondary">
+                <i class="bi bi-trash me-1"></i>クリア
+              </button>
+              <button id="send-btn" class="btn btn-primary" disabled>
+                <i class="bi bi-send me-1"></i>送信
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-secondary-subtle">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">
+                <i class="bi bi-journal-text me-2"></i>レスポンス
+              </h5>
+              <button id="clear-logs-btn" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-eraser me-1"></i>クリア
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="response-display" class="response-box">
+              <!-- APIレスポンスがここに表示されます -->
+              <div class="text-muted text-center p-3">
+                <i class="bi bi-info-circle me-1"></i>ここにレスポンスが表示されます
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- フィールド追加用テンプレート -->
+  <template id="field-template">
+    <div class="embed-field-row row g-2 mb-2">
+      <div class="col-5">
+        <input type="text" class="form-control field-name" placeholder="フィールド名">
+      </div>
+      <div class="col-5">
+        <input type="text" class="form-control field-value" placeholder="フィールド値">
+      </div>
+      <div class="col-2">
+        <div class="form-check pt-2">
+          <input class="form-check-input field-inline" type="checkbox">
+          <label class="form-check-label">インライン</label>
+        </div>
+      </div>
+      <div class="col-12 text-end">
+        <button type="button" class="btn btn-sm btn-outline-danger remove-field-btn">削除</button>
+      </div>
+    </div>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
